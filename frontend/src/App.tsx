@@ -121,7 +121,7 @@ export default function App() {
                   onChange={(e) => setDays(Number(e.target.value))}
                   className="w-full accent-indigo-600"
                 />
-                <span className="text-sm font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-md min-w-[40px] text-center">
+                <span className="text-sm font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-md min-w-10 text-center">
                   {days}d
                 </span>
               </div>
