@@ -13,3 +13,46 @@ VagabondAI is an end-to-end, high-performance full-stack web application that cr
 * **Backend:** Python 3.10+, FastAPI (Async worker engine), SQLAlchemy
 * **Database:** Neon PostgreSQL (Serverless Cloud DB)
 * **LLM Orchestration:** Google GenAI SDK (Gemini 2.5 Flash)
+
+
+### 1. 📂 Clone and Prepare the Repository
+Open your terminal window and run the following commands to pull down the project and verify your root directories:
+```bash
+git clone [https://github.com/MihirRueben/global-travel-planner.git](https://github.com/MihirRueben/global-travel-planner.git)
+
+cd global-travel-planner
+
+### 2. Setting Up the Backend
+# Move into backend directory
+cd backend
+
+# Initialize a clean virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# On Windows PowerShell:
+.\venv\Scripts\Activate.ps1
+# On Mac/Linux:
+source venv/bin/activate
+
+# Install all locked backend software requirements
+pip install -r requirements.txt
+
+### 3. Setting up the ENV
+NEON_DATABASE_URL="postgresql://[user]:[password]@[neon-cluster-id].neon.tech/neondb?sslmode=require"
+GEMINI_API_KEY="your_actual_gemini_api_key_here"
+
+### 4. Running the Backend
+# Start the FastAPI server
+uvicorn app.main:app --reload
+
+### 5. Setting up the Frontend
+# Move into frontend directory
+cd frontend
+
+# Install all locked frontend software requirements
+npm install
+
+# Start the React server
+npm run dev
+
