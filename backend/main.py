@@ -15,11 +15,16 @@ load_dotenv()
 
 app = FastAPI(title="Travel Engine API")
 
+# CORS Configuration to allow local react frontend to talk to the backend
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
 # Allowing the React local server port to access the API without CORS blocking
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -152,12 +157,16 @@ def create_itinerary(country_code: str, days: int, preferences: str, db: Session
         raise HTTPException(status_code=404, detail="Country code not found. Please run the /system/seed endpoint first.")
         
     country_payload = {
-        "name": country["common_name"],
-        "region": country["region"],
-        "languages": json.loads(country["languages"]),
-        "currencies": json.loads(country["currencies"]),
-        "capital": country["capital"]
-    }
+    "cca3": country["cca3"],
+    "common_name": country["common_name"],
+    "official_name": country["official_name"],
+    "region": country["region"],
+    "subregion": country["subregion"],
+    "languages": country["languages"] if isinstance(country["languages"], dict) else json.loads(country["languages"] or "{}"),
+    "currencies": country["currencies"] if isinstance(country["currencies"], dict) else json.loads(country["currencies"] or "{}"),
+    "capital": country["capital"],
+    "latlng": country["latlng"]
+}
     
     # 2. Fire the processed data packet to Gemini
     structured_data = generate_itinerary(country_payload, preferences, days)
